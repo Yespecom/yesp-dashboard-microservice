@@ -1,12 +1,9 @@
-// For local development, create a .env file with these variables:
-// PORT=5011
-// MAIN_DB_URI=mongodb://localhost:27017/yesp_main_db
-// MONGO_URI=mongodb://localhost:27017/ # Base URI for tenant databases
-// JWT_SECRET=your_super_secret_key_here
+
 
 require("dotenv").config()
 const express = require("express")
 const app = express()
+const cors = require("cors") 
 const dashboardRoutes = require("./routes/dashboardRoutes")
 const { connectMainDB } = require("./config/db")
 
@@ -14,6 +11,7 @@ const { connectMainDB } = require("./config/db")
 connectMainDB()
 
 app.use(express.json())
+app.use(cors())
 app.use("/api/dashboard", dashboardRoutes)
 
 app.get("/", (req, res) => {
